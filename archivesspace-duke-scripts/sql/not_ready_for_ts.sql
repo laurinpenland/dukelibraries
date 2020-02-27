@@ -1,16 +1,16 @@
 SELECT 
     accession.identifier AS 'Accession Number',
     accession.title AS 'Title',
-	enumeration_value.value AS 'Processing Status'
+    boolean_2 AS 'Not Ready for TS', 
+    enumeration_value.value AS 'Curator'
 FROM
     accession
         LEFT JOIN
-    collection_management ON accession.id = collection_management.accession_id 
+    user_defined ON accession.id = user_defined.accession_id 
 		LEFT JOIN
-	enumeration_value ON collection_management.processing_status_id = enumeration_value.id
+	enumeration_value ON user_defined.enum_1_id = enumeration_value.id
 WHERE
-	/*enumeration_value.id 61153 is "unprocessed", 256 is "in_progress", and null is null*/
-	(enumeration_value.id = 61153 or enumeration_value.id is null or enumeration_value.id=256)
-    AND repo_id = 2
-	AND accession.accession_date >= '20200101'
-    AND accession.accession_date <= '20200227'
+	boolean_2 = 0
+    AND repo_id = 2 /*repo_id is for the repository, "2" is for the Rubenstein Library*/
+	AND accession.accession_date >= '20190101'
+    AND accession.accession_date <= '20191209';
