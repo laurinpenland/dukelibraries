@@ -1,2 +1,2 @@
 # dukelibraries
-sql queries for ArchiveSpace
+sql queries for ArchivesSpace
